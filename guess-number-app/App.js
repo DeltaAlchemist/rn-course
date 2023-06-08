@@ -11,6 +11,7 @@ import {
 import { StartGameScreen } from './screens/StartGameScreen';
 import { useState } from 'react';
 import { GameScreen } from './screens/GameScreen';
+import Colors from './constants/colors';
 
 export default function App() {
   const [userNumber, setUserNumber] = useState();
@@ -28,7 +29,10 @@ export default function App() {
   return (
     <>
       <StatusBar style='light' />
-      <LinearGradient colors={['#52042b', '#ddb52f']} style={styles.root}>
+      <LinearGradient
+        colors={[Colors.primary700, Colors.accent500]}
+        style={styles.root}
+      >
         <ImageBackground
           source={require('./assets/images/background.png')}
           resizeMode='cover'
