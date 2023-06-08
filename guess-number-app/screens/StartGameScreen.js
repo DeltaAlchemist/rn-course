@@ -1,8 +1,34 @@
-import { TextInput } from 'react-native';
+import { Alert, TextInput } from 'react-native';
 import { StyleSheet, View } from 'react-native';
 import { PrimaryButton } from '../components/PrimaryButton';
+import { useState } from 'react';
 
-export const StartGameScreen = () => {
+export const StartGameScreen = ({ onPickNumber }) => {
+  const [inputNumber, setInputNumber] = useState(''); // textinput value is always a string
+
+  const numberInputHandler = (text) => {
+    setInputNumber(text);
+  };
+
+  const resetInputHandler = () => {
+    setInputNumber('');
+  };
+
+  const confirmInputHandler = () => {
+    const chosenNumber = parseInt(inputNumber);
+    if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
+      // show alert
+      Alert.alert(
+        'Invalid number',
+        'Number has to be a number between 1 and 99',
+        [{ text: 'Okay', style: 'destructive', onPress: resetInputHandler }]
+      );
+      return;
+    }
+
+    onPickNumber(chosenNumber);
+  };
+
   return (
     <View style={styles.inputContainer}>
       <TextInput
@@ -10,13 +36,15 @@ export const StartGameScreen = () => {
         maxLength={2}
         keyboardType='number-pad'
         autoCapitalize='none'
+        onChangeText={numberInputHandler}
+        value={inputNumber} // binding textinput value with state
       />
       <View style={styles.buttonsContainer}>
         <View style={styles.buttonContainer}>
-          <PrimaryButton>Reset</PrimaryButton>
+          <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
         </View>
         <View style={styles.buttonContainer}>
-          <PrimaryButton>Confirm</PrimaryButton>
+          <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
         </View>
       </View>
     </View>
@@ -30,7 +58,7 @@ const styles = StyleSheet.create({
     marginTop: 100,
     marginHorizontal: 24,
     padding: 18,
-    backgroundColor: '#410422',
+    backgroundColor: '#470426',
     borderRadius: 8,
     /* shadow for android */
     elevation: 6,
