@@ -1,8 +1,8 @@
 const Colors = {
   primary400: '#da006d',
-  primary500: '#72063c',
-  primary700: '#52042b',
-  primary800: '#470426',
+  primary500: '#58052f',
+  primary700: '#50032a',
+  primary800: '#420522',
   accent500: '#ddb52f',
 };
 
