@@ -6,8 +6,9 @@ import {
   Image,
   Platform,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+
 import { useNavigation } from '@react-navigation/native';
+import { MealDetails } from './MealDetails';
 
 export const MealItem = ({
   id,
@@ -37,13 +38,12 @@ export const MealItem = ({
             <Image source={{ uri: imageUrl }} style={styles.image} />
             <Text style={styles.title}>{title}</Text>
           </View>
-          <View style={styles.details}>
-            <Text style={styles.detailItem}>{duration} min</Text>
-            <Ionicons name='md-remove' size={12} color='black' />
-            <Text style={styles.detailItem}>{complexity.toUpperCase()}</Text>
-            <Ionicons name='md-remove' size={12} color='black' />
-            <Text style={styles.detailItem}>{affordability.toUpperCase()}</Text>
-          </View>
+          <MealDetails
+            duration={duration}
+            affordability={affordability}
+            complexity={complexity}
+            iconColor='black'
+          />
         </View>
       </Pressable>
     </View>
@@ -80,15 +80,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
     margin: 8,
-  },
-  details: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 8,
-  },
-  detailItem: {
-    marginHorizontal: 4,
-    fontSize: 12,
   },
 });
