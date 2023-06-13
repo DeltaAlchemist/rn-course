@@ -3,11 +3,15 @@ import { useNavigation } from '@react-navigation/native';
 import { GlobalStyles } from '../../constants/styles';
 import { getFortmattedDate } from '../../utils/date.js';
 
-export const ExpenseItem = ({ description, amount, date }) => {
+export const ExpenseItem = ({ id, description, amount, date }) => {
   const navigation = useNavigation();
+
   const expensePressHandler = () => {
-    navigation.navigate('ManageExpenses');
+    navigation.navigate('ManageExpenses', {
+      expenseId: id,
+    });
   };
+
   return (
     <Pressable
       onPress={expensePressHandler}

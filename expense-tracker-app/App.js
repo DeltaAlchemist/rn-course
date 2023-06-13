@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { ManageExpense } from './screens/ManageExpense';
 import { ExpensesOverview } from './components/ExpensesOutput/ExpensesOverview';
+import { GlobalStyles } from './constants/styles';
 
 const Stack = createNativeStackNavigator();
 
@@ -13,7 +14,12 @@ export default function App() {
     <>
       <StatusBar style='auto' />
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator
+          screenOptions={{
+            headerStyle: { backgroundColor: GlobalStyles.colors.primary500 },
+            headerTintColor: 'white',
+          }}
+        >
           {/* The first screen the loads up when the app starts */}
           <Stack.Screen
             name='ExpensesOverview'
@@ -22,7 +28,13 @@ export default function App() {
               headerShown: false,
             }}
           />
-          <Stack.Screen name='ManageExpenses' component={ManageExpense} />
+          <Stack.Screen
+            name='ManageExpenses'
+            component={ManageExpense}
+            options={{
+              presentation: 'modal',
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </>
