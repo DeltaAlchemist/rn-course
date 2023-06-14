@@ -1,12 +1,19 @@
 import { StyleSheet, View, Text } from 'react-native';
 import { Input } from './Input';
 import { useState } from 'react';
+import { Button } from '../ui/Button';
+import { getFortmattedDate } from '../../utils/date';
 
-export const ExpenseForm = () => {
+export const ExpenseForm = ({
+  submitButtonLabel,
+  onCancel,
+  onSubmit,
+  defaultValues,
+}) => {
   const [inputValues, setInputValues] = useState({
-    amount: '',
-    date: '',
-    description: '',
+    amount: defaultValues ? defaultValues.amount.toString() : '',
+    date: defaultValues ? getFortmattedDate(defaultValues.date) : '',
+    description: defaultValues ? defaultValues.description.toString() : '',
   });
 
   const inputChangedHandler = (inputIndentifier, enteredValue) => {
@@ -16,6 +23,16 @@ export const ExpenseForm = () => {
         [inputIndentifier]: enteredValue,
       };
     });
+  };
+
+  const submitHandler = () => {
+    const expenseData = {
+      amount: +inputValues.amount,
+      date: new Date(inputValues.date),
+      description: inputValues.description,
+    };
+
+    onSubmit(expenseData);
   };
 
   return (
@@ -51,6 +68,14 @@ export const ExpenseForm = () => {
           value: inputValues.description,
         }}
       />
+      <View style={styles.buttonsContainer}>
+        <Button style={styles.button} mode='flat' onPress={onCancel}>
+          Cancel
+        </Button>
+        <Button style={styles.button} onPress={submitHandler}>
+          {submitButtonLabel}
+        </Button>
+      </View>
     </View>
   );
 };
@@ -72,5 +97,14 @@ const styles = StyleSheet.create({
   },
   rowInput: {
     flex: 1,
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  button: {
+    minWidth: 120,
+    marginHorizontal: 8,
   },
 });
