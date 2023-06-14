@@ -102,6 +102,7 @@ export const ExpenseForm = ({
           multiline: true,
           // autoCapitalize: 'none',
           // autocorrect: false,
+          onChangeText: inputChangedHandler.bind(this, 'description'),
           value: inputs.description.value,
         }}
       />
